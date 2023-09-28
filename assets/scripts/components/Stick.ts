@@ -1,9 +1,7 @@
 import {
   _decorator,
-  Color,
   Component,
   find,
-  Graphics,
   instantiate,
   Node,
   Prefab,
@@ -25,6 +23,8 @@ import {
   STICK_WIDTH,
 } from "../consts/consts";
 import { getDistance } from "../utils/utils";
+import { SoundController } from "../managers/SoundController";
+
 const { ccclass } = _decorator;
 
 @ccclass("Stick")
@@ -116,7 +116,6 @@ export class Stick extends Component {
     pseudoStick.parent = Ground.getNode(1);
     const transform = pseudoStick.getComponent(UITransform);
     const height = this.stickHeight;
-    console.log(height);
     transform.contentSize = new Size(height, STICK_WIDTH);
     const posX = -height - groundCenterWidth / 2;
     const posY = GROUND_HEIGHT / 2 - STICK_WIDTH;
@@ -132,11 +131,13 @@ export class Stick extends Component {
       switch (Stick.isMouseDown) {
         case true:
           Stick.growStick();
+          SoundController.playMusic(true);
           break;
 
         case false:
           if (!Hero.isRunning) {
             GameManager.setGameState(gameState.running);
+            SoundController.playMusic(false);
           }
           break;
       }
