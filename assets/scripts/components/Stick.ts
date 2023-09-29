@@ -23,7 +23,7 @@ import {
   STICK_WIDTH,
 } from "../consts/consts";
 import { getDistance } from "../utils/utils";
-import { SoundController } from "../managers/SoundController";
+import { SoundController, soundName } from "../managers/SoundController";
 
 const { ccclass } = _decorator;
 
@@ -131,13 +131,13 @@ export class Stick extends Component {
       switch (Stick.isMouseDown) {
         case true:
           Stick.growStick();
-          SoundController.playMusic(true);
+          SoundController.playSound(soundName.growing);
           break;
 
         case false:
           if (!Hero.isRunning) {
             GameManager.setGameState(gameState.running);
-            SoundController.playMusic(false);
+            SoundController.playSound(soundName.growing);
           }
           break;
       }

@@ -7,6 +7,7 @@ import { GameOver } from "../managers/GameOver";
 import { ChangeSkin } from "../UI/ChangeSkin";
 import { groundCenterWidth } from "../consts/consts";
 import { GameManager, gameState } from "../managers/GameManager";
+import { SoundController, soundName } from "../managers/SoundController";
 
 export const checkSuccess = () => {
   const stickHeight = Stick.stickHeight;
@@ -35,6 +36,7 @@ export const checkSuccess = () => {
       stickHeight <= distanceToGroundCenter + groundCenterWidth / 2
     ) {
       Points.showPerfect();
+      SoundController.playSound(soundName.perfect);
       Points.addPoints(1);
     }
     Hero.moveWithCamera();

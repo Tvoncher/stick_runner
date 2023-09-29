@@ -3,6 +3,7 @@ import { checkSuccess, getDistance } from "../utils/utils";
 import { Stick } from "./Stick";
 import { CAMERA_SPEED, HERO_INITIAL_POS } from "../consts/consts";
 import { Ground } from "./Ground";
+import { SoundController, soundName } from "../managers/SoundController";
 const { ccclass } = _decorator;
 
 @ccclass("Hero")
@@ -51,6 +52,7 @@ export class Hero extends Component {
       .to(dropSpeed, {
         position: new Vec3(this.hero.position.x, this.hero.position.y - 400, 0),
       })
+      .call(() => SoundController.playSound(soundName.dying))
       .start();
   }
 }
