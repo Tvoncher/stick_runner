@@ -19,6 +19,7 @@ const { ccclass } = _decorator;
 export class Ground extends Component {
   static groundPrefab: Prefab;
   static groundArray: Node[];
+  private static groundWidth = { min: 50, max: 180 };
 
   protected onLoad(): void {
     Ground.groundArray = findPrefabs("ground");
@@ -26,7 +27,10 @@ export class Ground extends Component {
 
   static createGround() {
     const ground = instantiate(this.groundPrefab);
-    ground.getComponent(UITransform).width = getRandomNumber(50, 190);
+    ground.getComponent(UITransform).width = getRandomNumber(
+      this.groundWidth.min,
+      this.groundWidth.max
+    );
     const posX = getRandomNumber(-40, 240);
     ground.position.set(new Vec3(posX + getDistance(), GROUND_POS_Y, 0));
     ground.parent = find("Canvas");
@@ -35,6 +39,11 @@ export class Ground extends Component {
 
   static getNode(value: number) {
     return Ground.groundArray[value];
+  }
+
+  static changeGroundWidth(min: number, max: number) {
+    this.groundWidth.min = min;
+    this.groundWidth.max = max;
   }
 
   //creates illusion of moving camera

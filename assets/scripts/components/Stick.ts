@@ -126,6 +126,10 @@ export class Stick extends Component {
     this.stickHeight = 0;
   }
 
+  static setGrowthSpeed(value: number) {
+    this.growthSpeed = value;
+  }
+
   protected update(): void {
     if (GameManager.gameState === gameState.growing) {
       switch (Stick.isMouseDown) {
