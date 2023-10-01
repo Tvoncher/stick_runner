@@ -8,6 +8,7 @@ import { ChangeSkin } from "../UI/ChangeSkin";
 import { groundCenterWidth } from "../consts/consts";
 import { GameManager, gameState } from "../managers/GameManager";
 import { SoundController, soundName } from "../managers/SoundController";
+import { Item } from "../components/Item";
 
 export const checkSuccess = () => {
   const stickHeight = Stick.stickHeight;
@@ -41,6 +42,7 @@ export const checkSuccess = () => {
     }
     Hero.moveWithCamera();
     Ground.createGround();
+    Item.createItem();
     Ground.moveWithCamera();
     Stick.moveWithCamera();
     Points.addPoints(1);

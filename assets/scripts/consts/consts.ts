@@ -6,3 +6,5 @@ export const STICK_WIDTH = 15;
 export const CAMERA_SPEED = 0.7;
 export const HERO_INITIAL_POS = new Vec3(-237, -400, 1);
 export const groundCenterWidth = 30;
+export const ITEM_POS_Y = 80;
+export const itemWidth = 40;
