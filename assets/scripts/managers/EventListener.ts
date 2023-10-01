@@ -1,6 +1,7 @@
 import { _decorator, Component, Node } from "cc";
 import { Stick } from "../components/Stick";
 import { GameManager, gameState } from "./GameManager";
+import { Hero } from "../components/Hero";
 
 const { ccclass } = _decorator;
 
@@ -10,9 +11,15 @@ export class EventListener extends Component {
     this.node.on(
       Node.EventType.TOUCH_START,
       () => {
-        if (GameManager.gameState === gameState.waiting) {
-          Stick.setIsMouseDown(true);
-          GameManager.setGameState(gameState.growing);
+        switch (GameManager.gameState) {
+          case gameState.waiting:
+            Stick.setIsMouseDown(true);
+            GameManager.setGameState(gameState.growing);
+            break;
+
+          case gameState.running:
+            Hero.reverseHero();
+            break;
         }
       },
       this

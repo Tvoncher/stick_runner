@@ -29,7 +29,8 @@ export const checkSuccess = () => {
   //if stick touches ground
   if (
     stickHeight >= minDistanceBetweenGrounds &&
-    stickHeight <= maxDistanceBetweenGrounds
+    stickHeight <= maxDistanceBetweenGrounds &&
+    !Hero.isReversed
   ) {
     if (
       //stick to center - perfect

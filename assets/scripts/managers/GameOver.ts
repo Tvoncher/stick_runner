@@ -33,6 +33,9 @@ export class GameOver extends Component {
     Points.resetPoints();
     Points.setActive(true);
     ChangeSkin.setActive(true);
+    if (Hero.isReversed) {
+      Hero.reverseHero();
+    }
   }
 
   static setGameOver() {

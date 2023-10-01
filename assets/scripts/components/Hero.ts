@@ -1,4 +1,12 @@
-import { _decorator, Component, Node, tween, UITransform, Vec3 } from "cc";
+import {
+  _decorator,
+  Component,
+  Node,
+  tween,
+  UITransform,
+  Vec2,
+  Vec3,
+} from "cc";
 import { checkSuccess, getDistance } from "../utils/utils";
 import { Stick } from "./Stick";
 import { CAMERA_SPEED, HERO_INITIAL_POS } from "../consts/consts";
@@ -10,6 +18,7 @@ const { ccclass } = _decorator;
 export class Hero extends Component {
   static hero: Node;
   static isRunning = false;
+  static isReversed = false;
   private static speed = 250;
 
   protected onLoad(): void {
@@ -22,7 +31,9 @@ export class Hero extends Component {
     tween(this.hero)
       .to(
         distance / this.speed,
-        { position: new Vec3(posX, this.hero.position.y, 0) },
+        {
+          position: new Vec3(posX, this.hero.position.y, this.hero.position.z),
+        },
         { easing: "smooth" }
       )
       .call(() => {
@@ -54,5 +65,16 @@ export class Hero extends Component {
       })
       .call(() => SoundController.playSound(soundName.dying))
       .start();
+  }
+
+  static reverseHero() {
+    this.isReversed = !this.isReversed;
+
+    this.hero.setScale(
+      new Vec3(this.hero.scale.x, this.hero.scale.y * -1, this.hero.scale.z)
+    );
+
+    const transfrom = this.hero.getComponent(UITransform);
+    transfrom.anchorPoint = new Vec2(1, transfrom.anchorPoint.y * -1);
   }
 }
