@@ -1,6 +1,8 @@
 import {
   _decorator,
+  Collider2D,
   Component,
+  Contact2DType,
   Node,
   tween,
   UITransform,
@@ -20,9 +22,13 @@ export class Hero extends Component {
   static isRunning = false;
   static isReversed = false;
   private static speed = 250;
+  private static collider: Collider2D;
 
   protected onLoad(): void {
     Hero.hero = this.node;
+
+    Hero.collider = this.getComponent(Collider2D);
+    Hero.collider.on(Contact2DType.BEGIN_CONTACT, this.pickItem, this);
   }
 
   static run(distance: number) {
@@ -76,5 +82,21 @@ export class Hero extends Component {
 
     const transfrom = this.hero.getComponent(UITransform);
     transfrom.anchorPoint = new Vec2(1, transfrom.anchorPoint.y * -1);
+
+    const height = transfrom.height;
+    this.isReversed
+      ? (Hero.collider.offset.y -= height)
+      : (Hero.collider.offset.y += height);
+  }
+
+  private pickItem(hero: Collider2D, item: Collider2D) {
+    const node = item.node;
+    if (node) {
+      try {
+        node.destroy();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 }
