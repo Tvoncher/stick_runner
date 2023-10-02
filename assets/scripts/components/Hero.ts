@@ -92,6 +92,7 @@ export class Hero extends Component {
 
   private pickItem(hero: Collider2D, item: Collider2D) {
     Points.setIsItemPicked(true);
+    SoundController.playSound(soundName.picking);
     const node = item.node;
     if (node) {
       try {

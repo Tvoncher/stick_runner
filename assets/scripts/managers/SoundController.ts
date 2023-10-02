@@ -5,6 +5,7 @@ export const enum soundName {
   perfect = "Perfect",
   growing = "Growing",
   dying = "Dying",
+  picking = "Picking",
 }
 
 @ccclass("SoundController")
@@ -13,6 +14,7 @@ export class SoundController extends Component {
   private static growing: AudioClip;
   private static perfect: AudioClip;
   private static dying: AudioClip;
+  private static picking: AudioClip;
 
   protected onLoad(): void {
     SoundController.audio = this.node.getComponent(AudioSource);
@@ -26,6 +28,9 @@ export class SoundController extends Component {
     resources.load("/sounds/dying", AudioClip, (err, data) => {
       SoundController.dying = data;
     });
+    resources.load("/sounds/picking", AudioClip, (err, data) => {
+      SoundController.picking = data;
+    });
   }
 
   static playSound(soundOf: soundName) {
@@ -38,6 +43,9 @@ export class SoundController extends Component {
         break;
       case soundName.dying:
         this.audio.playOneShot(this.dying);
+        break;
+      case soundName.picking:
+        this.audio.playOneShot(this.picking);
         break;
     }
   }
