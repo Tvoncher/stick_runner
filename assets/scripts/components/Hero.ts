@@ -14,6 +14,7 @@ import { Stick } from "./Stick";
 import { CAMERA_SPEED, HERO_INITIAL_POS } from "../consts/consts";
 import { Ground } from "./Ground";
 import { SoundController, soundName } from "../managers/SoundController";
+import { Points } from "../UI/Points";
 const { ccclass } = _decorator;
 
 @ccclass("Hero")
@@ -90,6 +91,7 @@ export class Hero extends Component {
   }
 
   private pickItem(hero: Collider2D, item: Collider2D) {
+    Points.setIsItemPicked(true);
     const node = item.node;
     if (node) {
       try {

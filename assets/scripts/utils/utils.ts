@@ -47,6 +47,7 @@ export const checkSuccess = () => {
     Ground.moveWithCamera();
     Stick.moveWithCamera();
     Points.addPoints(1);
+    Points.addItem();
   } else {
     GameManager.setGameState(gameState.waiting);
     Stick.pushStick(-180);

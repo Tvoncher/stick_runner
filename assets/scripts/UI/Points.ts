@@ -14,9 +14,12 @@ const { ccclass } = _decorator;
 @ccclass("Points")
 export class Points extends Component {
   private static points = 0;
-
   private static pointsNode: Node;
   private static pointsLabel: Label;
+
+  private static itemsCount: Label;
+  private static isItemPicked: boolean;
+
   private static finalScoreLabel: Label;
   private static perfect: Node;
 
@@ -27,6 +30,9 @@ export class Points extends Component {
     Points.finalScoreLabel = find("Canvas/gameOverScreen/score").getComponent(
       Label
     );
+    Points.itemsCount = find(
+      "Canvas/gameOverScreen/itemsIcon/itemCount"
+    ).getComponent(Label);
   }
 
   static addPoints(value: number) {
@@ -37,9 +43,22 @@ export class Points extends Component {
     Points.finalScoreLabel.string = newString;
   }
 
+  static addItem() {
+    if (this.isItemPicked) {
+      const newItemsCount = +Points.itemsCount.string + 1;
+      Points.itemsCount.string = newItemsCount.toString();
+      this.isItemPicked = false;
+    }
+  }
+
+  static setIsItemPicked(value: boolean) {
+    this.isItemPicked = value;
+  }
+
   static resetPoints() {
     this.points = 0;
     this.resetStrings();
+    this.itemsCount.string = "0";
   }
 
   static resetStrings() {

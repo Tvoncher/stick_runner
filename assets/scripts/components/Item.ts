@@ -57,6 +57,4 @@ export class Item extends Component {
 
     item.position = new Vec3(-posX, ITEM_POS_Y, 1);
   }
-
-  static pickItem() {}
 }
