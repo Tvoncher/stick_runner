@@ -53,12 +53,10 @@ export class Ground extends Component {
       const startingPosition = -237;
       let newPositionX = node.getPosition().x;
 
-      if (index === 1) {
-        newPositionX -= getDistance();
-      } else if (index === 2) {
+      if (index === 2) {
         newPositionX = startingPosition;
-      } else if (index === 3) {
-        newPositionX = node.getPosition().x - getDistance();
+      } else {
+        newPositionX -= getDistance();
       }
 
       tween(node)
