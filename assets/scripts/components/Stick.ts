@@ -47,7 +47,7 @@ export class Stick extends Component {
 
     const groundNode = Ground.getNode(1);
     const groundWidth = groundNode.getComponent(UITransform).width;
-    const posX = groundNode.position.x + groundWidth / 2 - STICK_WIDTH / 2;
+    const posX = groundNode.getPosition().x + groundWidth / 2 - STICK_WIDTH / 2;
     const posY = GROUND_POS_Y + GROUND_HEIGHT / 2;
 
     const stickPosition = new Vec3(posX, posY, 0);
@@ -96,8 +96,8 @@ export class Stick extends Component {
     tween(this.stick)
       .to(CAMERA_SPEED, {
         position: new Vec3(
-          this.stick.position.x - getDistance(),
-          this.stick.position.y,
+          this.stick.getPosition().x - getDistance(),
+          this.stick.getPosition().y,
           0
         ),
       })

@@ -13,17 +13,17 @@ import { Item } from "../components/Item";
 export const checkSuccess = () => {
   const stickHeight = Stick.stickHeight;
   const distanceToGroundCenter = getDistance(Stick.stick);
+  const stickPosition = Stick.stick.getPosition();
+
+  const nextGroundPosition = Ground.getNode(2).getPosition();
+  const nextGroundWidth = Ground.getNode(2).getComponent(UITransform).width;
 
   const minDistanceBetweenGrounds = Math.abs(
-    Stick.stick.position.x -
-      Ground.getNode(2).position.x +
-      Ground.getNode(2).getComponent(UITransform).width / 2
+    stickPosition.x - nextGroundPosition.x + nextGroundWidth / 2
   );
 
   const maxDistanceBetweenGrounds = Math.abs(
-    Stick.stick.position.x -
-      Ground.getNode(2).position.x -
-      Ground.getNode(2).getComponent(UITransform).width / 2
+    stickPosition.x - nextGroundPosition.x - nextGroundWidth / 2
   );
 
   //if stick touches ground
@@ -73,8 +73,8 @@ export const getDistance = (
   firstNode: Node = Ground.getNode(1),
   secondNode: Node = Ground.getNode(2)
 ) => {
-  const firstNodePosition = firstNode.position.x;
-  const secondNodePosition = secondNode.position.x;
+  const firstNodePosition = firstNode.getPosition().x;
+  const secondNodePosition = secondNode.getPosition().x;
 
   const distance = firstNodePosition - secondNodePosition;
 

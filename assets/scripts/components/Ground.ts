@@ -51,19 +51,19 @@ export class Ground extends Component {
     this.groundArray.forEach((node, index) => {
       const offset = 10;
       const startingPosition = -237;
-      let newPositionX = node.position.x;
+      let newPositionX = node.getPosition().x;
 
       if (index === 1) {
         newPositionX -= getDistance();
       } else if (index === 2) {
         newPositionX = startingPosition;
       } else if (index === 3) {
-        newPositionX = node.position.x - getDistance();
+        newPositionX = node.getPosition().x - getDistance();
       }
 
       tween(node)
         .to(CAMERA_SPEED, {
-          position: new Vec3(newPositionX + offset, node.position.y, 0),
+          position: new Vec3(newPositionX + offset, node.getPosition().y, 0),
         })
         .call(() => GameManager.setGameState(gameState.waiting))
         .start();
