@@ -67,4 +67,13 @@ export class Ground extends Component {
         .start();
     });
   }
+
+  protected update(): void {
+    //need to have previous, current and 2 next grounds
+    const numOfGrounds = 4;
+    if (Ground.groundArray.length >= numOfGrounds) {
+      const firstInstance = Ground.groundArray.splice(0, 1);
+      firstInstance[0].destroy();
+    }
+  }
 }

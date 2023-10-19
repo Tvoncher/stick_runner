@@ -85,7 +85,7 @@ export class Points extends Component {
       })
       .start();
 
-    const plusOne = Ground.groundArray[2].getChildByName("plusOne");
+    const plusOne = Ground.getNode(2).getChildByName("plusOne");
     const opacity = plusOne.getComponent(UIOpacity);
     const updatedPosition = new Vec3(
       plusOne.position.x,

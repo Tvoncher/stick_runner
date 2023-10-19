@@ -73,6 +73,7 @@ export const getDistance = (
   firstNode: Node = Ground.getNode(1),
   secondNode: Node = Ground.getNode(2)
 ) => {
+  //TODO: why initial pos changes to +10
   const firstNodePosition = firstNode.getPosition().x;
   const secondNodePosition = secondNode.getPosition().x;
 
