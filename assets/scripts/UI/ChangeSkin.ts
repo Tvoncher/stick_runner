@@ -2,7 +2,6 @@ import {
   _decorator,
   Component,
   find,
-  Node,
   Sprite,
   SpriteFrame,
   tween,
