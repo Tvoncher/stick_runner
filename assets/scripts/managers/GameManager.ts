@@ -28,12 +28,14 @@ export class GameManager extends Component {
     }
   }
 
-  static enableHardMode(value: boolean) {
-    if (value) {
-      Stick.setGrowthSpeed(30);
+  static enableHardMode(hardMode: boolean) {
+    const baseSpeed = 300;
+    const fasterSpeed = 550;
+    if (hardMode) {
+      Stick.setGrowthSpeed(fasterSpeed);
       Ground.changeGroundWidth(40, 90);
     } else {
-      Stick.setGrowthSpeed(50);
+      Stick.setGrowthSpeed(baseSpeed);
       Ground.changeGroundWidth(50, 180);
     }
   }

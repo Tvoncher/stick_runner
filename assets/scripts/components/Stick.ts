@@ -30,8 +30,7 @@ const { ccclass } = _decorator;
 @ccclass("Stick")
 export class Stick extends Component {
   private static isMouseDown = false;
-  private static growthInterval: number;
-  private static growthSpeed = 50;
+  private static growthSpeed = 300;
   static stick: Node;
   static stickHeight: number = 0;
   static stickPrefab: Prefab;
@@ -52,21 +51,15 @@ export class Stick extends Component {
 
     const stickPosition = new Vec3(posX, posY, 0);
     this.stick.setPosition(stickPosition);
-
-    this.growthInterval = setInterval(() => {
-      const growthSize = 15;
-      this.stickHeight += growthSize;
-    }, this.growthSpeed);
   }
 
-  static growStick() {
-    const transform = this.stick.getComponent(UITransform);
-    transform.contentSize = new Size(STICK_WIDTH, this.stickHeight);
+  static growStick(dt: number) {
+    this.stickHeight += this.growthSpeed * dt;
+    const stickTransform = this.stick.getComponent(UITransform);
+    stickTransform.contentSize = new Size(STICK_WIDTH, this.stickHeight);
   }
 
   static pushStick(degrees: number) {
-    clearInterval(this.growthInterval);
-
     const quat: Quat = new Quat();
     Quat.fromEuler(quat, 0, 0, degrees);
     tween(this.stick)
@@ -130,11 +123,11 @@ export class Stick extends Component {
     this.growthSpeed = value;
   }
 
-  protected update(): void {
+  protected update(dt: number): void {
     if (GameManager.gameState === gameState.growing) {
       switch (Stick.isMouseDown) {
         case true:
-          Stick.growStick();
+          Stick.growStick(dt);
           SoundController.playSound(soundName.growing);
           break;
 
